@@ -5,9 +5,12 @@ import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { UserContext } from '@lib/context';
 import debounce from 'lodash.debounce';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 const EnterPage: NextPage = () => {
   const { user, username } = useContext(UserContext);
+  const router = useRouter();
+  if (user) router.push('/');
 
   return (
     <main>
@@ -30,11 +33,9 @@ function SignInButton() {
   };
 
   return (
-    <>
-      <button className='btn-google' onClick={signInWithGoogle}>
-        <img src={'/google.png'} width='30px' /> Sign in with Google
-      </button>
-    </>
+    <button className='btn-google' onClick={signInWithGoogle}>
+      <img src={'/google.png'} width='30px' /> Sign in with Google
+    </button>
   );
 }
 

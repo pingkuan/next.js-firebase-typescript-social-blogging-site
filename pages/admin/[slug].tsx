@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
 import ImageUploader from '@components/ImageUploader';
+import { Post } from 'types/';
 
 const AdminPostEdit: NextPage = () => {
   return (
@@ -42,7 +43,9 @@ const PostManager = () => {
     'posts',
     slug
   );
-  const [post] = useDocumentData(postRef);
+  const [postDoc] = useDocumentData(postRef);
+
+  const post = postDoc as Post;
 
   return (
     <main className={styles.container}>
@@ -76,7 +79,7 @@ const PostManager = () => {
 };
 
 type PostFormProps = {
-  defaultValues: DocumentData;
+  defaultValues: Post;
   postRef: DocumentReference<DocumentData>;
   preview: boolean;
 };
@@ -90,7 +93,13 @@ const PostForm = ({ defaultValues, postRef, preview }: PostFormProps) => {
     watch,
   } = useForm({ defaultValues, mode: 'onChange' });
 
-  const updatePost = async ({ content, published }) => {
+  const updatePost = async ({
+    content,
+    published,
+  }: {
+    content: string;
+    published: boolean;
+  }) => {
     await updateDoc(postRef, {
       content,
       published,

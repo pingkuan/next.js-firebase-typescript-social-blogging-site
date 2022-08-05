@@ -1,9 +1,8 @@
 import { Post } from 'types';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import { DocumentData } from 'firebase/firestore';
 
-export default function PostContent({ post }: { post: Post | DocumentData }) {
+export default function PostContent({ post }: { post: Post }) {
   const createdAt: Date =
     typeof post?.createdAt === 'number'
       ? new Date(post.createdAt)
@@ -17,7 +16,7 @@ export default function PostContent({ post }: { post: Post | DocumentData }) {
         <Link href={`/${post.username}/`}>
           <a className='text-info'>@{post.username}</a>
         </Link>{' '}
-        on {createdAt.toISOString()}
+        on {createdAt.toLocaleString()}
       </span>
       <ReactMarkdown>{post?.content}</ReactMarkdown>
     </div>

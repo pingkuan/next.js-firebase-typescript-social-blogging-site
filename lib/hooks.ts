@@ -1,4 +1,5 @@
 import { auth } from '@lib/firebase';
+import { UserProps } from 'types';
 import {
   doc,
   onSnapshot,
@@ -18,7 +19,8 @@ export function useUserData() {
     if (user) {
       const ref = doc(getFirestore(), 'users', user.uid);
       unsubscribe = onSnapshot(ref, (doc: DocumentData) => {
-        setUsername(doc.data()?.username);
+        const x = { ...doc.data() } as UserProps;
+        setUsername(x.username);
       });
     } else {
       setUsername(null);

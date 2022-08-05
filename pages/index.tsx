@@ -17,7 +17,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
 import Metatags from '@components/Metatags';
 
-const LIMIT: number = 10;
+const LIMIT: number = 5;
 
 export const getServerSideProps: GetServerSideProps = async ({}) => {
   const ref = collectionGroup(getFirestore(), 'posts');

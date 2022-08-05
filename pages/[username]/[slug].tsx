@@ -11,7 +11,6 @@ import {
   limit,
   getDocs,
   getDoc,
-  DocumentData,
 } from 'firebase/firestore';
 import { Post } from 'types';
 import AuthCheck from '@components/AuthCheck';
@@ -77,8 +76,8 @@ type Props = {
 const PostPage: NextPage<Props> = (props) => {
   const postRef = doc(getFirestore(), props.path);
   const [realtimePost] = useDocumentData(postRef);
-
-  const post: DocumentData | Post = realtimePost || props.post;
+  const rPost = realtimePost as Post;
+  const post: Post = rPost || props.post;
 
   const { user: currentUser } = useContext(UserContext);
 
@@ -92,7 +91,10 @@ const PostPage: NextPage<Props> = (props) => {
 
       <aside className='card'>
         <p>
-          <strong>{post.heartCount || 0}🤍</strong>
+          <strong>
+            {post.heartCount || 0}
+            {post.heartCount > 0 ? '💗' : '🤍'}
+          </strong>
         </p>
 
         <AuthCheck
