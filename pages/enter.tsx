@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 const EnterPage: NextPage = () => {
   const { user, username } = useContext(UserContext);
   const router = useRouter();
-  if (user) router.push('/');
+  if (username) router.push('/');
 
   return (
     <main>
