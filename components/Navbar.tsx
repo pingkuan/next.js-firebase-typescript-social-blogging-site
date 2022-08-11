@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           </>
         )}
 
-        {!username && (
+        {!username && !user ? (
           <>
             <li>
               <Link href='/enter'>
@@ -49,6 +49,20 @@ const Navbar: React.FC = () => {
               </Link>
             </li>
           </>
+        ) : (
+          !username &&
+          user && (
+            <>
+              <li className='push-left'>
+                <button onClick={signOutNow}>Sign Out</button>
+              </li>
+              <li>
+                <Link href='/enter'>
+                  <button className='btn-blue'>Choose Username</button>
+                </Link>
+              </li>
+            </>
+          )
         )}
       </ul>
     </nav>
